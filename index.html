@@ -439,24 +439,34 @@
     <footer>
         © 2025 Flavor Haven Recipes. All rights reserved.
     </footer>
+<script>
+    // AUTO-UNLOCK FOR OWNER (you!)
+    const isOwner = true; // Set to false on live site
 
-    <script>
-        function unlockPremium() {
-            const pass = document.getElementById('premium-pass').value.trim();
-            const msg = document.getElementById('msg');
-            const premium = document.getElementById('premium-recipes');
-            const cards = premium.querySelectorAll('.locked');
+    if (isOwner) {
+        document.getElementById('premium-recipes').style.display = 'block';
+        document.querySelectorAll('.locked').forEach(card => card.classList.remove('locked'));
+        document.getElementById('msg').textContent = "Owner Mode: Premium Unlocked!";
+        document.getElementById('msg').style.color = "green";
+    }
 
-            if (pass === "MOON2025") {
-                premium.style.display = 'block';
-                cards.forEach(card => card.classList.remove('locked'));
-                msg.textContent = "Premium recipes unlocked! Enjoy!";
-                msg.style.color = "green";
-            } else {
-                msg.textContent = "Incorrect code. Pay $1.99 to get access.";
-                msg.style.color = "#900";
-            }
+    function unlockPremium() {
+        const pass = document.getElementById('premium-pass').value.trim();
+        const msg = document.getElementById('msg');
+        const premium = document.getElementById('premium-recipes');
+        const cards = premium.querySelectorAll('.locked');
+
+        if (pass === "MOON2025" || isOwner) {
+            premium.style.display = 'block';
+            cards.forEach(card => card.classList.remove('locked'));
+            msg.textContent = "Premium recipes unlocked! Enjoy!";
+            msg.style.color = "green";
+        } else {
+            msg.textContent = "Incorrect code. Pay $1.99 to get access.";
+            msg.style.color = "#900";
         }
-    </script>
+    }
+</script>
+    
 </body>
 </html>
