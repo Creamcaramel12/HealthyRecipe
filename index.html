@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Flavor Haven Recipes</title>
+    <style>
+        :root {
+            --primary: #8B4519;
+            --accent: #DAA520;
+            --card: #FFFFFF;
+            --text: #333;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') center/cover no-repeat fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: rgba(139,69,25,0.9);
+            color: white;
+        }
+        h1 { font-size: 2.8rem; margin-bottom: .5rem; }
+        h2 { 
+            font-size: 1.8rem; 
+            color: var(--accent); 
+            margin: 2rem 0 1rem; 
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: .5rem;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 1rem; }
+        .recipes { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); }
+        .recipe-card {
+            background: var(--card);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform .3s;
+        }
+        .recipe-card:hover { transform: translateY(-5px); }
+        .recipe-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            background: #eee;
+        }
+        .recipe-body { padding: 1rem; }
+        .recipe-title { font-size: 1.4rem; margin-bottom: .5rem; color: var(--primary); }
+        .ingredients, .steps { margin-top: .75rem; font-size: .95rem; }
+        .ingredients li, .steps li { margin-bottom: .3rem; }
+        .locked { filter: blur(5px); pointer-events: none; user-select: none; }
+        .premium-section {
+            background: rgba(218,165,32,0.2);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: center;
+            border: 2px dashed var(--accent);
+        }
+        .pay-btn {
+            background: #0070ba;
+            color: white;
+            border: none;
+            padding: .75rem 1.8rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 1rem 0;
+            display: inline-block;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .pay-btn:hover { background: #005ea6; }
+        .password-input {
+            padding: .6rem;
+            width: 200px;
+            margin-right: .5rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .unlock-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: .6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .unlock-btn:hover { background: #b8860b; }
+        #msg { margin-top: .5rem; font-weight: bold; }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #eee;
+            font-size: .9rem;
+            background: rgba(0,0,0,0.3);
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .recipes { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Flavor Haven Recipes</h1>
+    </header>
+
+    <div class="container">
+
+        <!-- FREE RECIPES -->
+        <section>
+            <h2>10 Free Recipes</h2>
+            <div class="recipes">
+
+                <!-- 1. Chicken Tikka Masala -->
+                <div class="recipe-card">
+                    <img src="https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Chicken Tikka Masala">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Chicken Tikka Masala</div>
+                        <ul class="ingredients">
+                            <li>1 lb chicken breast, cubed</li>
+                            <li>1 cup yogurt, 1 onion, 2 tomatoes</li>
+                            <li>Garam masala, turmeric, cumin</li>
+                        </ul>
+                        <ol class="steps">
+                            <li>Marinate chicken in yogurt & spices 1 hr.</li>
+                            <li>Sauté onion, add tomato puree, spices.</li>
+                            <li>Add chicken, simmer 15 min. Serve with rice.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- 2. Beef & Broccoli Stir-Fry -->
+                <div class="recipe-card">
+                    <img src="https://images.pexels.com/photos/2313686/pexels-photo-2313686.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Beef & Broccoli Stir-Fry">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Beef & Broccoli Stir-Fry</div>
+                        <ul class="ingredients">
+                            <li>½ lb beef strips, 2 cups broccoli</li>
+                            <li>Soy sauce, garlic, ginger, cornstarch</li>
+                        </ul>
+                        <ol class="steps">
+                            <li>Brown beef 2 min, set aside.</li>
+                            <li>Stir-fry broccoli & garlic 3 min.</li>
+                            <li>Add sauce, return beef, thicken 1 min.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- 3. Lemon Herb Roasted Chicken -->
+                <div class="recipe-card">
+                    <img src="https://images.pexels.com/photos/6210876/pexels-photo-6210876.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Lemon Herb Chicken">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Lemon Herb Roasted Chicken</div>
+                        <ul class="ingredients">
+                            <li>4 chicken thighs, lemon, garlic, rosemary</li>
+                            <li>Olive oil, salt, pepper</li>
+                        </ul>
+                        <ol class="steps">
+                            <li>Rub chicken with oil, herbs, lemon juice.</li>
+                            <li>Roast at 400°F for 35 min.</li>
+                            <li>Rest 5 min before serving.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- 4. Hearty Beef Chili -->
+                <div class="recipe-card">
+                    <img src="https://images.pexels.com/photos/1618906/pexels-photo-1618906.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Hearty Beef Chili">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Hearty Beef Chili</div>
+                        <ul class="ingredients">
+                            <li>1 lb ground beef, 1 can kidney beans</li>
+                            <li>Onion, tomato paste, chili powder</li>
+                        </ul>
+                        <ol class="steps">
+                            <li>Brown beef & onion.</li>
+                            <li>Add spices, tomatoes, beans; simmer 30 min.</li>
+                            <li>Top with cheese & serve.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- 5. Creamy Chicken Alfredo -->
+                <div class="recipe-card">
+                    <img src="https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Chicken Alfredo">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Creamy Chicken Alfredo</div>
+                        <ul class="ingredients">
+                            <li>8 oz fettuccine, 2 chicken breasts</li>
+                            <li>Heavy cream, parmesan, garlic</li>
+                        </ul>
+                        <ol class="steps">
+                            <li>Cook pasta. Sauté chicken.</li>
+                            <li>Make cream sauce with garlic & cheese.</li>
+                            <li>Toss pasta & chicken in sauce.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- 6. Spiced Beef Tacos -->
+                <div class="recipe-card">
+                    <img src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Spiced Beef Tacos">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Spiced Beef Tacos</div>
+                        <ul class="ingredients">
+                            <li>1 lb ground beef, taco shells</li>
+                            <li>Cumin, paprika, onion, lettuce, cheese</li>
+                        </ul>
+                        <ol class="steps">
+                            <li>Brown beef with spices.</li>
+                            <li>Fill warm shells with beef & toppings.</li>
+                            <li>Serve immediately.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- 7. Garlic Butter Chicken -->
+                <div class="recipe-card">
+                    <img src="https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Garlic Butter Chicken">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Garlic Butter Chicken</div>
+                        <ul class="ingredients">
+                            <li>4 chicken thighs, butter, garlic</li>
+                            <li>Parsley, lemon, salt</li>
+                        </ul>
+                        <ol class="steps">
+                            <li>Sear chicken in butter 5 min/side.</li>
+                            <li>Add garlic, bast 2 min.</li>
+                            <li>Finish with parsley & lemon.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- 8. Molten Chocolate Lava Cake -->
+                <div class="recipe-card">
+                    <img src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Molten Lava Cake">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Molten Chocolate Lava Cake</div>
+                        <ul class="ingredients">
+                            <li>4 oz dark chocolate, ½ cup butter</li>
+                            <li>2 eggs, ¼ cup sugar, 2 tbsp flour</li>
+                        </ul>
+                        <ol class="steps">
+                            <li>Melt chocolate & butter.</li>
+                            <li>Whisk eggs & sugar, fold in chocolate & flour.</li>
+                            <li>Bake in ramekins at 425°F for 12 min.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- 9. Cinnamon Apple Crisp -->
+                <div class="recipe-card">
+                    <img src="https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cinnamon Apple Crisp">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Cinnamon Apple Crisp</div>
+                        <ul class="ingredients">
+                            <li>4 apples, oats, brown sugar</li>
+                            <li>Butter, cinnamon, flour</li>
+                        </ul>
+                        <ol class="steps">
+                            <li>Slice apples, toss with cinnamon.</li>
+                            <li>Mix oats, sugar, butter for topping.</li>
+                            <li>Bake 375°F for 35 min.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- 10. Silky Chocolate Mousse -->
+                <div class="recipe-card">
+                    <img src="https://images.pexels.com/photos/1098599/pexels-photo-1098599.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Silky Chocolate Mousse">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Silky Chocolate Mousse</div>
+                        <ul class="ingredients">
+                            <li>6 oz dark chocolate, 3 eggs</li>
+                            <li>1 cup heavy cream, 2 tbsp sugar</li>
+                        </ul>
+                        <ol class="steps">
+                            <li>Melt chocolate. Whip cream to soft peaks.</li>
+                            <li>Beat yolks into chocolate, fold in whites.</li>
+                            <li>Fold in cream. Chill 2 hrs.</li>
+                        </ol>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PREMIUM SECTION -->
+        <section class="premium-section">
+            <h2>Unlock 10 Premium Recipes</h2>
+            <p><strong>Only $1.99</strong> – Instant Access!</p>
+            <a href="https://paypal.me/moonscape44/1.99" target="_blank" class="pay-btn">
+                Pay $1.99 via PayPal
+            </a>
+            <p style="font-size:.9rem; margin:1rem 0;">
+                After payment, you'll receive the access code via PayPal message or email.
+            </p>
+
+            <div style="margin-top:1.5rem;">
+                <input type="password" id="premium-pass" class="password-input" placeholder="Enter access code">
+                <button class="unlock-btn" onclick="unlockPremium()">Unlock Premium</button>
+                <p id="msg"></p>
+            </div>
+        </section>
+
+        <!-- PREMIUM RECIPES (Locked) -->
+        <section id="premium-recipes" style="display:none;">
+            <h2>Premium Recipes (Unlocked!)</h2>
+            <div class="recipes">
+
+                <!-- Premium 1: Truffle Butter Roast Chicken -->
+                <div class="recipe-card locked">
+                    <img src="https://images.pexels.com/photos/698308/pexels-photo-698308.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Truffle Roast Chicken">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Truffle Butter Roast Chicken</div>
+                        <ul class="ingredients">
+                            <li>Whole chicken, truffle butter, thyme</li>
+                            <li>Garlic, lemon, root veggies</li>
+                        </ul>
+                        <ol class="steps">
+                            <li>Stuff with lemon & herbs.</li>
+                            <li>Rub with truffle butter, roast 1.5 hrs at 375°F.</li>
+                            <li>Serve with pan jus.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Premium 2: Pan-Seared Ribeye with Herb Butter -->
+                <div class="recipe-card locked">
+                    <img src="https://images.pexels.com/photos/1630365/pexels-photo-1630365.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Ribeye Steak">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Pan-Seared Ribeye with Herb Butter</div>
+                        <ul class="ingredients">
+                            <li>12 oz ribeye, butter, rosemary</li>
+                            <li>Garlic, salt, pepper</li>
+                        </ul>
+                        <ol class="steps">
+                            <li>Season steak, sear 4 min/side.</li>
+                            <li>Baste with herb butter.</li>
+                            <li>Rest 5 min, slice.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Premium 3: Honey Garlic Glazed Chicken -->
+                <div class="recipe-card locked">
+                    <img src="https://images.pexels.com/photos/162290/pexels-photo-162290.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Honey Garlic Chicken">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Honey Garlic Glazed Chicken</div>
+                        <ul class="ingredients"><li>Chicken thighs, honey, soy, garlic</li></ul>
+                        <ol class="steps"><li>Marinate 30 min. Bake 25 min at 400°F.</li></ol>
+                    </div>
+                </div>
+
+                <!-- Premium 4: Beef Stroganoff -->
+                <div class="recipe-card locked">
+                    <img src="https://images.pexels.com/photos/675951/pexels-photo-675951.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Beef Stroganoff">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Beef Stroganoff</div>
+                        <ul class="ingredients"><li>Beef strips, mushrooms, sour cream</li></ul>
+                        <ol class="steps"><li>Sauté beef, add sauce, serve over noodles.</li></ol>
+                    </div>
+                </div>
+
+                <!-- Premium 5: Classic Tiramisu -->
+                <div class="recipe-card locked">
+                    <img src="https://images.pexels.com/photos/754954/pexels-photo-754954.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Tiramisu">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Classic Tiramisu</div>
+                        <ul class="ingredients"><li>Ladyfingers, mascarpone, espresso, cocoa</li></ul>
+                        <ol class="steps"><li>Layer soaked fingers with cream. Chill 4 hrs.</li></ol>
+                    </div>
+                </div>
+
+                <!-- Premium 6: Caramel Pecan Cheesecake -->
+                <div class="recipe-card locked">
+                    <img src="https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Caramel Cheesecake">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Caramel Pecan Cheesecake</div>
+                        <ul class="ingredients"><li>Cream cheese, pecans, caramel</li></ul>
+                        <ol class="steps"><li>Bake crust, fill, chill 6 hrs.</li></ol>
+                    </div>
+                </div>
+
+                <!-- Premium 7: Butter Chicken Curry -->
+                <div class="recipe-card locked">
+                    <img src="https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Butter Chicken">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Butter Chicken Curry</div>
+                        <ul class="ingredients"><li>Chicken, cream, tomato, spices</li></ul>
+                        <ol class="steps"><li>Marinate, cook in rich sauce 20 min.</li></ol>
+                    </div>
+                </div>
+
+                <!-- Premium 8: Beef Wellington Bites -->
+                <div class="recipe-card locked">
+                    <img src="https://images.pexels.com/photos/11267448/pexels-photo-11267448.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Beef Wellington">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Beef Wellington Bites</div>
+                        <ul class="ingredients"><li>Beef tenderloin, puff pastry, mushrooms</li></ul>
+                        <ol class="steps"><li>Wrap, bake 15 min at 425°F.</li></ol>
+                    </div>
+                </div>
+
+                   <!-- Premium 9: Triple Chocolate Mousse -->
+                <div class="recipe-card locked">
+                    <img src="https://images.pexels.com/photos/3026810/pexels-photo-3026810.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Triple Chocolate Mousse">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Triple Chocolate Mousse</div>
+                        <ul class="ingredients"><li>Dark, milk, white chocolate, cream</li></ul>
+                        <ol class="steps"><li>Layer mousses, chill 3 hrs.</li></ol>
+                    </div>
+                </div>
+
+                <!-- Premium 10: Crispy Chicken Parmesan -->
+                <div class="recipe-card locked">
+                    <img src="https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Chicken Parmesan">
+                    <div class="recipe-body">
+                        <div class="recipe-title">Crispy Chicken Parmesan</div>
+                        <ul class="ingredients"><li>Chicken cutlets, marinara, mozzarella</li></ul>
+                        <ol class="steps"><li>Bread, fry, bake with cheese 15 min.</li></ol>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        © 2025 Flavor Haven Recipes. All rights reserved.
+    </footer>
+
+    <script>
+        function unlockPremium() {
+            const pass = document.getElementById('premium-pass').value.trim();
+            const msg = document.getElementById('msg');
+            const premium = document.getElementById('premium-recipes');
+            const cards = premium.querySelectorAll('.locked');
+
+            if (pass === "MOON2025") {
+                premium.style.display = 'block';
+                cards.forEach(card => card.classList.remove('locked'));
+                msg.textContent = "Premium recipes unlocked! Enjoy!";
+                msg.style.color = "green";
+            } else {
+                msg.textContent = "Incorrect code. Pay $1.99 to get access.";
+                msg.style.color = "#900";
+            }
+        }
+    </script>
+</body>
+</html>
