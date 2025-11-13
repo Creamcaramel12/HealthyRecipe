@@ -549,7 +549,7 @@
     </footer>
 
     <script>
-        const isOwner = true; // Change to false when live
+        const isOwner = false; // Change to false when live
 
         if (isOwner) {
             document.getElementById('premium-recipes').style.display = 'block';
@@ -564,7 +564,7 @@
             const premium = document.getElementById('premium-recipes');
             const cards = premium.querySelectorAll('.locked');
 
-            if (pass === "MOON2025" || isOwner) {
+            if (pass === "GOLDENSPOON2025" || isOwner) {
                 premium.style.display = 'block';
                 cards.forEach(card => card.classList.remove('locked'));
                 msg.textContent = "Premium recipes unlocked! Enjoy!";
