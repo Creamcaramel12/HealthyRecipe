@@ -545,31 +545,30 @@
     </footer>
 
     <script>
-        const isOwner = false; // Change to false when live
+async function unlockPremium() {
+  const pass = document.getElementById('premium-pass').value.trim();
+  const msg = document.getElementById('msg');
+  const premium = document.getElementById('premium-recipes');
+  const cards = premium.querySelectorAll('.locked');
 
-        if (isOwner) {
-            document.getElementById('premium-recipes').style.display = 'block';
-            document.querySelectorAll('.locked').forEach(card => card.classList.remove('locked'));
-            document.getElementById('msg').innerHTML = "<strong>Owner Mode:</strong> Premium Unlocked!";
-            document.getElementById('msg').style.color = "green";
-        }
+  const res = await fetch('/.netlify/functions/unlock', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ code: pass })
+  });
 
-        function unlockPremium() {
-            const pass = document.getElementById('premium-pass').value.trim();
-            const msg = document.getElementById('msg');
-            const premium = document.getElementById('premium-recipes');
-            const cards = premium.querySelectorAll('.locked');
-
-            if (pass ==="GOLDENSPOON2025"|| isOwner) {
-                premium.style.display = 'block';
-                cards.forEach(card => card.classList.remove('locked'));
-                msg.textContent = "Premium recipes unlocked! Enjoy!";
-                msg.style.color = "green";
-            } else {
-                msg.textContent = "Incorrect code. Pay $1.99 to get access.";
-                msg.style.color = "#900";
-            }
-        }
+  const data = await res.json();
+  
+  if (data.ok) {
+    premium.style.display = 'block';
+    cards.forEach(card => card.classList.remove('locked'));
+    msg.textContent = data.message;
+    msg.style.color = "green";
+  } else {
+    msg.textContent = data.message;
+    msg.style.color = "#900";
+  }
+}
     </script>
 </body>
 </html>
